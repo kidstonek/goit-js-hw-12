@@ -3,7 +3,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 
 import { getImagesByQuery, PER_PAGE } from "./js/pixabay-api";
-import { createGallery, showLoader, hideLoader, clearGallery, hideLoadMoreButton, showLoadMoreButton, addingGallery, endOfCollection, galleryEl } from "./js/render-functions";
+import { createGallery, showLoader, hideLoader, clearGallery, hideLoadMoreButton, showLoadMoreButton, addingGallery, galleryEl } from "./js/render-functions";
 
 
 const refs = {
@@ -89,3 +89,11 @@ refs.showMore.addEventListener('click', async (e) => {
     }
 
 })
+
+
+function endOfCollection() {
+  iziToast.info({
+    message: "We're sorry, but you've reached the end of search results.",
+    position: 'topRight'
+  })
+}

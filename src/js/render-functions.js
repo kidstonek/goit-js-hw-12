@@ -1,7 +1,5 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
-import iziToast from "izitoast";
-import 'izitoast/dist/css/iziToast.min.css';
 
 export const galleryEl = document.querySelector('.gallery');
 const loaderEl = document.querySelector('.loader');
@@ -74,12 +72,4 @@ function image(img) {
             </div>
           </li>
 `
-}
-
-
-export function endOfCollection() {
-  iziToast.info({
-    message: "We're sorry, but you've reached the end of search results.",
-    position: 'topRight'
-  })
 }
