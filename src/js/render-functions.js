@@ -3,7 +3,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
 
-const galleryEl = document.querySelector('.gallery');
+export const galleryEl = document.querySelector('.gallery');
 const loaderEl = document.querySelector('.loader');
 const buttonLoader = document.querySelector('.btn-load')
 const gallery = new SimpleLightbox('.gallery a', {
@@ -20,11 +20,6 @@ export function createGallery(images) {
 
 export function addingGallery(images) {
   galleryEl.insertAdjacentHTML('beforeend', images.map(image).join(''));
-  const myscroll = galleryEl.firstElementChild.getBoundingClientRect();
-  window.scrollBy({
-  top: myscroll.height * 2,
-  behavior: "smooth",
-});
   gallery.refresh();
 }
 

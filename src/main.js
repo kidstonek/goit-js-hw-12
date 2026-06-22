@@ -3,7 +3,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 
 import { getImagesByQuery, PER_PAGE } from "./js/pixabay-api";
-import { createGallery, showLoader, hideLoader, clearGallery, hideLoadMoreButton, showLoadMoreButton, addingGallery, endOfCollection } from "./js/render-functions";
+import { createGallery, showLoader, hideLoader, clearGallery, hideLoadMoreButton, showLoadMoreButton, addingGallery, endOfCollection, galleryEl } from "./js/render-functions";
 
 
 const refs = {
@@ -61,19 +61,31 @@ refs.usrForm.addEventListener('submit', async (e) => {
 refs.showMore.addEventListener('click', async (e) => {
     e.preventDefault()
     page += 1;
-    if (page >= totalPages) {
-        hideLoadMoreButton();
-        endOfCollection();
-    }
-    
+    showLoader();
+    hideLoadMoreButton();
     try {
         const myGalery =  await getImagesByQuery(query, page)
         addingGallery(myGalery.hits)
+        
+        const myscroll = galleryEl.firstElementChild.getBoundingClientRect();
+        window.scrollBy({
+            top: myscroll.height * 2,
+            behavior: "smooth",
+        });
+        if (page >= totalPages) {
+            endOfCollection();
+        } else {
+                showLoadMoreButton();
+        }
+    
     } catch (error) {
         iziToast.error({
-               message: 'Sorry, there are no images matching your search query. Please try again!',
-               position: 'topRight'
-            })
+            message: 'Sorry, there are no images matching your search query. Please try again!',
+            position: 'topRight'
+        })
         
+    } finally {
+        hideLoader()
     }
+
 })
