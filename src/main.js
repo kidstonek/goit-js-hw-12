@@ -3,7 +3,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 
 import { getImagesByQuery, PER_PAGE } from "./js/pixabay-api";
-import { createGallery, showLoader, hideLoader, clearGallery, hideLoadMoreButton, showLoadMoreButton, addingGallery } from "./js/render-functions";
+import { createGallery, showLoader, hideLoader, clearGallery, hideLoadMoreButton, showLoadMoreButton, addingGallery, endOfCollection } from "./js/render-functions";
 
 
 const refs = {
@@ -30,7 +30,7 @@ refs.usrForm.addEventListener('submit', async (e) => {
         totalPages = Math.ceil(myGalery.totalHits / PER_PAGE);
         
         hideLoader();
-        if (myGalery.length === 0) {
+        if (myGalery.hits.length === 0) {
             iziToast.error({
                message: 'Sorry, there are no images matching your search query. Please try again!',
                position: 'topRight'
@@ -77,12 +77,3 @@ refs.showMore.addEventListener('click', async (e) => {
         
     }
 })
-
-
-const endOfCollection = () => {
-            iziToast.info({
-               message: "We're sorry, but you've reached the end of search results.",
-               position: 'topRight'
-            })
-
-}
